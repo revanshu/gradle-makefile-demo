@@ -1,0 +1,10 @@
+task webpack(type: Exec) { 
+  // input and output checks if web assets have updated or not abd oly apply when update is there.
+    inputs.file("package-lock.json").withPathSensitivity(PathSensitivity.RELATIVE) 
+    inputs.dir("app").withPathSensitivity(PathSensitivity.RELATIVE)
+    // NOTE: Add inputs.file("webpack.config.js") for projects that have it
+    outputs.dir("$buildDir/js")
+    outputs.cacheIf { true }
+
+    commandLine "$projectDir/node_modules/.bin/webpack", "app/index.js", "$buildDir/js/bundle.js"
+}
